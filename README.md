@@ -1,110 +1,42 @@
-# G10-LATAM-equipo-27
-CommunityLab – Motor Inteligente de Transformación y Distribución para Comunidades Digitales
+# 🤖 AI Community Manager & Content Curator
 
-# 📋 Informe de Sprint Review — Ingeniería de Sistemas Informáticos
-**Fecha de reunión:** Jueves, 17 de septiembre de 2026  
-**Proyecto:** Simulación No Country — Equipo G10-LATAM-27  
-**Fase Actual:** Etapa 1 — Cimentación e Infraestructura  
+Un pipeline de Inteligencia Artificial *End-to-End* diseñado para automatizar la moderación, curaduría y generación de contenido (Copywriting) a partir de comunidades de Discord. 
 
----
+Este proyecto transforma una ráfaga de mensajes crudos en publicaciones listas para redes sociales corporativas, utilizando inyección dinámica de personalidad (RAG) y arquitecturas de datos estrictas.
 
-## 📌 Resumen Ejecutivo
-El presente informe consolida los avances, decisiones técnicas, compromisos e infraestructura establecida durante la jornada del **17 de septiembre de 2026**. El objetivo primordial de este sprint ha sido sentar las bases organizativas y tecnológicas del proyecto, asegurando el control de versiones, la orquestación de tareas y la arquitectura inicial del software antes de abordar la integración de componentes de Inteligencia Artificial.
+## 🚀 Características Principales (Features)
 
----
+*   **Triaje Analítico Estricto:** Utiliza el modelo Llama 3.3 para evaluar mensajes y asignar un KPI de relevancia (0-100), separando el ruido (saludos, quejas) del valor (casos de éxito, vacantes).
+*   **Structured Output (Pydantic):** Abandona el *prompting* tradicional de texto libre. La IA está forzada nativamente a devolver un objeto de datos JSON perfecto, eliminando errores de parseo.
+*   **Inyección Dinámica de Marca (RAG Básico):** El sistema adapta su tono, vocabulario y emojis en tiempo real leyendo un archivo `.txt` (Manual de Marca) cargado por el usuario, sin modificar el código fuente.
+*   **Sistema "Human-in-the-Loop":** Interfaz gráfica interactiva que permite a un Community Manager rescatar mensajes descartados por el filtro algorítmico, forzando a una segunda IA creativa a reescribirlos.
+*   **Exportación B2B (Hand-off):** Módulo de descarga JSON con los activos finales estructurados para integrarse con herramientas de automatización (Zapier, Make, etc.).
 
-## 🛠️ 1. Ecosistema Tecnológico y Herramientas Organizacionales
+## 🛠️ Stack Tecnológico
 
-Se han habilitado e integrado formalmente las plataformas operativas para la gestión, control de versiones y colaboración del equipo:
+*   **Backend & LLM:** Python, LangChain, Groq API (Llama-3.3-70b-versatile).
+*   **Estructuración de Datos:** Pydantic (Function Calling / Structured Outputs).
+*   **Frontend / UI:** Streamlit (Métricas en tiempo real, Tabs multicanal, File Uploader).
+*   **Data Mocking:** JSON local para simulación de Ingesta (Arquitectura Desacoplada).
 
-| Plataforma | Propósito Operativo | Enlace de Acceso |
-| :--- | :--- | :--- |
-| **GitHub** | Control de versiones y gestión del código fuente. | [Repositorio GitHub](...) |
-| **Google Drive** | Almacenamiento de reportes, documentación y minutas de reunión. | [Carpeta en Google Drive](...) |
-| **Trello** | Integración visual, trazabilidad de etapas y flujo de trabajo. | [Tablero en Trello](...) |
-| **Canva** | Mapeo visual del equipo, organización y diagramación inicial. | [Diseño en Canva](...) |
+## ⚙️ Arquitectura del Sistema
 
-### Normativa de Reuniones
-* **Tolerancia máxima de ingreso:** 10 minutos.
-* **Duración máxima de sesión activa:** 1 hora.
+1.  **Cerebro IA (`cerebro_ia.py`):** Contiene las plantillas de LangChain y la definición de esquemas de Pydantic. Aloja dos cadenas: la *Cadena de Filtro* (estricta) y la *Cadena de Rescate* (creativa).
+2.  **Dashboard Visual (`app.py`):** Gestiona el estado de la sesión, renderiza los KPIs ejecutivos e interactúa con el usuario para la inyección del manual de marca.
+3.  **Contrato de Datos:** El sistema espera un input estandarizado (`id`, `autor`, `canal`, `texto`) para asegurar que el backend pueda conectarse a cualquier fuente (Discord, Slack, Telegram).
 
----
+## 🚀 Cómo ejecutarlo localmente
 
-## 🏗️ 2. Avances de la Etapa 1 — Cimentación
-
-**Objetivo Central:** Alinear las directrices del equipo y dejar lista la infraestructura técnica base antes de integrar modelos de IA.
-
-### Asignación Inicial de Roles
-* **Project Manager (PM):** Liderazgo operativo, definición de entregables y estructuración del flujo en Trello.
-* **Backend:** Definición de arquitectura base para la generación de activos finales.
-
-### Definición Técnica y Arquitectura
-1. **Lenguaje Principal:** Implementación sobre **Python**.
-2. **Orquestación de Flujos:** Evaluación e integración potencial de **n8n** (plataforma de automatización de código abierto).
-3. **Estrategia de Dataset:**
-   * **Fase inicial:** Uso de conjunto de datos simulado/estático en formato **JSON** (basado en el PDF del problema).
-   * **Fase posterior:** Pruebas de integración mediante el servidor ya configurado **TechMarketing** para interactuar con mensajes en Discord.
-4. **Evaluación de Modelos de Lenguaje (LLMs):**
-   * Opción prioritaria: **Groq** (alta velocidad, costo gratuito, modelo *Llama 3.3*, previamente probado).
-   * Se mantienen otras alternativas en proceso de evaluación y definición.
-
----
-
-## 🎉 3. Logros Principales del Sprint
-
-Durante la sesión se concretaron exitosamente los siguientes entregables:
-
-* 📄 **Análisis de Ejemplos:** Revisión y ejemplificación de entregas previas en formato PDF.
-* 🌐 **Pautas del Proyecto:** Creación del archivo `Communitylab-plan` con directrices de desarrollo en formato HTML.
-* 🎨 **Boceto Visual:** Representación inicial de las ideas del Dashboard en formato de imagen.
-* ⚙️ **Gobernanza:** Establecimiento de mecanismos de Organización, Control y Planeación.
-* 📁 **Estructura Documental:** Creación y configuración de la carpeta de trabajo en Google Drive.
-* 📊 **Tablero de Trello:** Configuración del tablero para el seguimiento de tareas.
-* 🧩 **Estructura Organizativa:** Diagramación del equipo de trabajo en Canva.
-* 💬 **Servidor de Pruebas:** Despliegue de un servidor con canales dedicados para pruebas de comunicación.
-* 🤖 **Bot de Asistencia:** Creación e integración de un bot automatizado para apoyo en transferencias de información.
-
----
-
-## ⚠️ 4. Backlog, Desafíos Técnicos y Plan de Mitigación
-
-### Tareas Pendientes en Backlog
-1. Definición e incorporación de roles requeridos para las etapas subsiguientes.
-2. Preparación de la primera Demostración (Demo) funcional del software.
-
-### Desafío Técnico Identificado y Mitigación
-> **Problema:** Dificultad para realizar pruebas en tiempo real con datos no estructurados provenientes de Discord o redes de comunidad (*Communitylab*).  
-> **Solución/Mitigación:** Se iniciará el flujo de procesamiento con datos o *datasets* fijos (JSON estático) como fase de validación inicial antes de pasar a la ingesta en tiempo real.
-
-### Infraestructura en OCI (Oracle Cloud Infrastructure)
-* **Plan Backend:** Creación de un bucket en *OCI Object Storage* (nivel *Always Free*) y generación de una URL con Solicitud Preautenticada (PAR - *Pre-Authenticated Request*). Esto evitará el uso complejo de SDKs y autenticaciones adicionales.
-* **Estado Actual:** Pendiente a la espera de la asignación/liberación de recursos en OCI.
-
----
-
-## 🚀 5. Próximos Sprints y Hoja de Ruta (Roadmap)
-
-### Entrega Inmediata
-* 📅 **Fecha límite de la Etapa 1:** Lunes, 21 de septiembre de 2026.
-* 📏 **Entregable clave:** Definición formal de parámetros y métricas para la evaluación de sentimiento, clasificación de temas y puntuación (*scoring*).
-
----
-
-### Proyección de Etapas Futuras
-
-#### 🧠 Etapa 2 — Cerebro de IA *(Fricción Media | Duración: 2–3 días)*
-* **Objetivo:** Análisis de sentimiento/temas y generación de contenido (*copy*) personalizado por canal.
-* **Estrategia:** El equipo de datos diseñará *prompts* con técnica *few-shot* (ejemplos diferenciados para tono LinkedIn vs. tono FAQ) directamente en los playgrounds web de Groq o Claude.
-* **Herramientas de Nodos:** Tras validar los prompts manualmente, se migrará a herramientas visuales como **Flowise** (`flowiseai.com`) o **Langflow** (`langflow.org`) para encadenar el flujo (`Entrada → Sentimiento → Generación`).
-
-#### 🔄 Etapa 3 — Orquestación y Automatización *(Fricción Media-Alta)*
-* **Objetivo:** Construcción del flujo con bifurcaciones condicionales requeridas por el checklist del proyecto.
-* **Tecnología:** Desarrollo del workflow completo en **Python** o **n8n.io**, guardando los resultados directamente en **OCI Object Storage**.
-* **Nota Técnica:** Representa el punto de mayor fricción técnica del proyecto. Se recomienda que el rol Backend lidere esta fase con el apoyo del perfil *Vibe Coder*.
-
-#### 💻 Etapa 4 — Interfaz, Documentación y Demo *(Fricción Acotada)*
-* **Objetivo:** Cumplimiento integral del checklist de entrega final.
-* **Interfaz:** Creación de un panel de control interactivo simple en **Streamlit** para visualización y aprobación de activos.
-* **Despliegue:** Alojamiento en **Streamlit Community Cloud** para evitar la configuración compleja de Máquinas Virtuales (VMs). El requisito de OCI se dará por cumplido mediante el Object Storage (OCI Compute queda como diferencial opcional).
-* **Equipo Responsable:** Frontend + Vibe Coder apoyados en herramientas asistidas por IA (Claude Code, Cursor o Lovable).
-* **Documentación:** Archivo `README.md` con diagrama de arquitectura (Mermaid o draw.io) y video de demostración corto mediante **Loom**.
+1. Clona el repositorio:
+   ```bash
+   git clone [https://github.com/tu-usuario/AI-Community-Manager.git](https://github.com/tu-usuario/AI-Community-Manager.git)
+2. Instala las dependencias (se recomienda un entorno virtual):
+   ```bash
+   pip install langchain langchain-core langchain-groq pydantic streamlit python-dotenv
+3. Crea un archivo .env en la raíz con tus credenciales:
+   ```Fragmento de código
+   GROQ_API_KEY=tu_clave_aqui
+   DISCORD_TOKEN=tu_clave_aqui
+4. Levanta el servidor local de Streamlit
+   ```bash
+   python -m streamlit run app.py
